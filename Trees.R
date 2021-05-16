@@ -1,6 +1,7 @@
-rm(list=ls(all=TRUE)) #Remove objetos da memória do R
+#Remove objetos da memória do R
+rm(list=ls(all=TRUE))
 
-#Instala bibliotecas necessarias
+#Instala bibliotecas
 install.packages('datasets')
 install.packages('caret')
 
@@ -9,39 +10,39 @@ library(datasets)
 library(caret)
 library(stringr)
 
-#Armazena o conjunto de dados trees em um data frame chamado dados
-dados <- trees
+#Armazena o conjunto de dados trees em um data frame
+dataframe <- trees
 
 #Renomeia as variaveis
-names(dados) <- c('circunferencia','altura','volume')
+names(dataframe) <- c('circumference','height','volume')
 
 #Visualiza resumo descritivo dos dados
-summary(dados)
+summary(dataframe)
 
 #Visualiza relacao entre volume e circunferencia
-plot(y = dados$volume,
-     x = dados$circunferencia,
+plot(y = dataframe$volume,
+     x = dataframe$circumference,
      pch = 16,
-     col = 'blue',
+     col = 'red',
      ylab = 'Volume',
-     xlab = 'Circunferencia',
-     main = 'Relacao entre volume e circunferencia',
+     xlab = 'Circunferência',
+     main = 'Relacao entre volume e circunferência da árvore',
      cex.lab =1.5);
 
 #adiciona linhas de grade
 grid() 
 
-#Reta de regressão simples
+#TRaça uma reta de regressão simples
 abline(lm(dados$volume ~ dados$circunferencia))#Plota reta de regressao
 
 #Correlação das features volume e circunferência
-cor(dados$volume,dados$circunferencia)
+cor(dataframe$volume,dataframe$circumference)
 
 #Visualizar equação da regressão linear (Distance=Intercept+coefficient*speed)
-reglim <- lm(dados$volume ~ dados$circunferencia)
+reglim <- lm(dataframe$volume ~ dataframe$circumference)
 print (reglim)
 
-#Y=??0+??1X
+#Monta equacao
 B0 <- (round(reglim$coefficients[1],2))
 B1 <- (round(reglim$coefficients[2],2))
 equation <- str_c(B0, ' + (x * ',B1,')')
